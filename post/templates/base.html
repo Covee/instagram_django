@@ -8,7 +8,10 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 	<link rel="stylesheet" href="{% static 'css/style.css' %}">
-	<title>Instagram</title>
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<title>INSTAGRAM</title>
 </head>
 <body>
 	<div class="container">
@@ -34,4 +37,25 @@
 		{% endblock %}
 	</div>
 </body>
+
+<nav class="top-nav navbar navbar-static-top navbar-default">
+	<div class="container">
+		<div class="navbar-header">
+			<a href="{% url 'post:post_list' %}" class="navbar-brand">Instagram</a>
+		</div>
+
+		<div class="collapse navbar-collapse">
+			<form action="" class="navbar-form navbar-left search-hashtag-form" role="search">
+				<div class="form-group">
+					<input type="text" class="form-control search-hashtag-input" placeholder="해시태그 검색...">
+				</div>
+			</form>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="">Likes</a></li>
+				<li><a href="">Profile</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
 </html>
