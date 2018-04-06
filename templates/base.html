@@ -53,6 +53,7 @@
 			</form>
 			<ul class="nav navbar-nav navbar-right">
 				{% if user.is_authenticated %}
+					<li><a href="{% url 'post:post_create' %}">POST 글쓰기</a></li>
 					<li><a href="">좋아요</a></li>
 					<li><a href="">프로필</a></li>
 					<li><a href="{% url 'member:logout' %}">로그아웃</a></li>

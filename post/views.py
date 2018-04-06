@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from .forms import CommentForm
+from .forms import CommentForm, PostForm
 from .models import Post, Comment
 from django.contrib import messages
 
@@ -51,3 +51,21 @@ def post_detail(request, post_pk):
 		'comment_form': comment_form,
 	}
 	return render(request, 'post/post_detail.html', context)
+
+def post_create(request):
+	if request.method == 'POST':
+		post_form = PostForm(request.POST, request.FILES)
+		if post_form.is_valid():
+			post = post_form.save(commit=False)
+			post.author = request.user
+			post.save()
+
+			messages.success(request, '사진이 등록되었습니다.')
+			return redirect('post:post_list')
+	else:
+		post_form = PostForm()
+
+	context = {
+		'post_form': post_form,
+	}
+	return render(request, 'post/post_create.html', context)

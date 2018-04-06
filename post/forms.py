@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Comment
+from .models import Comment, Post
 
 
 class CommentForm(forms.ModelForm):
@@ -28,3 +28,10 @@ class CommentForm(forms.ModelForm):
 		if errors:
 			raise forms.ValidationError(errors)
 		return data
+
+class PostForm(forms.ModelForm):
+	class Meta:
+		model = Post
+		fields = (
+			'photo',
+		)
