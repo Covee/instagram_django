@@ -6,22 +6,16 @@ from .forms import LoginForm, SignupForm
 
 def login(request):
 	if request.method == 'POST':
-		login_form = LoginForm(request.POST)
+		next = request.GET.get('next')
+		login_form = LoginForm(request=request, data=request.POST)
 		if login_form.is_valid():
-			username = login_form.cleaned_data['username']
-			password = login_form.cleaned_data['password']
-
-			user = authenticate(
-				username=username,
-				password=password
-			)
-			if user:
-				django_login(request, user)
-				return redirect('post:post_list')
-			
-			login_form.add_error(None, '아이디 또는 비밀번호가 올바르지 않습니다.')
+			user = login_form.get_user()
+			django_login(request, user)
+			return redirect(next if next else 'post:post_list')
+		login_form.add_error(None, '아이디 또는 비밀번호가 올바르지 않습니다')
 	else:
 		login_form = LoginForm()
+
 	context = {
 		'login_form': login_form,
 	}
@@ -35,7 +29,8 @@ def signup(request):
 	if request.method == 'POST':
 		signup_form = SignupForm(request.POST)
 		if signup_form.is_valid():
-			signup_form.signup()
+			user = signup_form.save()
+			django_login(request, user)
 			return redirect('post:post_list')
 	else:
 		signup_form = SignupForm()
