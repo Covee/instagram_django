@@ -16,19 +16,19 @@
 <body>
 	<div class="container">
 		{% if messages %}
-			{% for message in messages %}
-				<div class="alert-message alert
-				{% if message.tags == 'info' %}
-				alert-info
-				{% elif message.tags == 'success' %}
-				alert-success
-				{% elif message.tags == 'warning' %}
-				alert-warning
-				{% elif message.tags == 'error' %}
-				alert-danger
-				{% endif %}
-				">{{ message }}</div>
-			{% endfor %}
+		{% for message in messages %}
+		<div class="alert-message alert
+		{% if message.tags == 'info' %}
+		alert-info
+		{% elif message.tags == 'success' %}
+		alert-success
+		{% elif message.tags == 'warning' %}
+		alert-warning
+		{% elif message.tags == 'error' %}
+		alert-danger
+		{% endif %}
+		">{{ message }}</div>
+		{% endfor %}
 		{% endif %}
 
 		<h1>{% block title %}{% endblock %}</h1>
@@ -37,6 +37,7 @@
 		{% endblock %}
 	</div>
 </body>
+
 
 <nav class="top-nav navbar navbar-static-top navbar-default">
 	<div class="container">
@@ -51,11 +52,16 @@
 				</div>
 			</form>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="">Likes</a></li>
-				<li><a href="">Profile</a></li>
+				{% if user.is_authenticated %}
+					<li><a href="">좋아요</a></li>
+					<li><a href="">프로필</a></li>
+					<li><a href="{% url 'member:logout' %}">로그아웃</a></li>
+				{% else %}
+					<li><a href="{% url 'member:login' %}">로그인</a></li>
+					<li><a href="">회원가입</a></li>
+				{% endif %}
 			</ul>
 		</div>
 	</div>
 </nav>
-
 </html>
