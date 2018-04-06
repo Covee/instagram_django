@@ -7,13 +7,17 @@ from django.contrib import messages
 
 def post_list(request):
 	posts = Post.objects.all()
+	comments = Comment.objects.all()
+	comment_form = CommentForm()
 	context = {
 		'posts': posts,
+		'comment_form': comment_form,
 	}
 	return render(request, 'post/post_list.html', context)
 
 
 def comment_create(request, post_pk):
+	next_path = request.GET.get('next')
 	if request.method == 'POST':          # it only works when POST requested
 		post = get_object_or_404(Post, pk=post_pk)          # load POST instance or pop up a '404 Response'
 		comment_form = CommentForm(request.POST)          # request.POST를 이용한 Bounded Form 생성
@@ -30,6 +34,11 @@ def comment_create(request, post_pk):
 					for key, value in comment_form.errors.items()
 					for error in value]))
 			messages.error(request, error_msg)
+
+		if next_path:
+			return redirect(next_path)
+
+		return redirect('post:post_list')
 
 			# Comment.objects.create(          # valid 하면 comment객체 생성 및 DB에 저장
 			# 	post=post,

@@ -6,10 +6,11 @@
 	{% else %}
 		<img src="{{ post.photo.url }}" alt="" class="post-image">
 	{% endif %}
+
 	<div class="panel-body">
-		{% if post.comments.exists %}
+		{% if post.comment_set.exists %}
 		<ul class="comment-list">
-			{% for comment in post.comments.all %}
+			{% for comment in post.comment_set.all %}
 			<li class="comment">
 				<span class="comment-author">{{ comment.author }}</span>
 				<span class="comment-content">{{ comment.content }}</span>
@@ -18,9 +19,19 @@
 		</ul>
 		<hr>
 		{% endif %}
-		<form action="{% url 'post:comment_create' post_pk=post.pk %}" method="POST" class="comment-form">
+		<form 
+		action="{% url 'post:comment_create' post_pk=post.pk %}?next=
+		{% if post_type == 'list' %}
+			{% url 'post:post_list' %}#post-{{ post.pk }}
+		{% elif post_type == 'detail' %}
+			{% url 'post:post_detail' post_pk=post.pk %}
+		{% endif %}"
+		method="POST" 
+		class="comment-form">
 			{% csrf_token %}
 			{{ comment_form.content }}
 		</form>
 	</div>
+
+
 </div>
