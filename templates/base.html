@@ -58,7 +58,7 @@
 					<li><a href="{% url 'member:logout' %}">로그아웃</a></li>
 				{% else %}
 					<li><a href="{% url 'member:login' %}">로그인</a></li>
-					<li><a href="">회원가입</a></li>
+					<li><a href="{% url 'member:signup' %}">회원가입</a></li>
 				{% endif %}
 			</ul>
 		</div>

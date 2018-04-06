@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login as django_login, logout as django_logout, authenticate
 
-from .forms import LoginForm
+from .forms import LoginForm, SignupForm
 
 
 def login(request):
@@ -30,3 +30,17 @@ def login(request):
 def logout(request):
 	django_logout(request)
 	return redirect('post:post_list')
+
+def signup(request):
+	if request.method == 'POST':
+		signup_form = SignupForm(request.POST)
+		if signup_form.is_valid():
+			signup_form.signup()
+			return redirect('post:post_list')
+	else:
+		signup_form = SignupForm()
+
+	context = {
+		'signup_form': signup_form,
+	}
+	return render(request, 'member/signup.html', context)
