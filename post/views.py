@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .forms import CommentForm, PostForm
 from .models import Post, Comment
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 
 def post_list(request):
@@ -15,7 +16,7 @@ def post_list(request):
 	}
 	return render(request, 'post/post_list.html', context)
 
-
+@login_required
 def comment_create(request, post_pk):
 	next_path = request.GET.get('next')
 	if request.method == 'POST':          # it only works when POST requested
@@ -61,6 +62,7 @@ def post_detail(request, post_pk):
 	}
 	return render(request, 'post/post_detail.html', context)
 
+@login_required
 def post_create(request):
 	if request.method == 'POST':
 		post_form = PostForm(request.POST, request.FILES)

@@ -28,6 +28,10 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'member.User'
+
+LOGIN_REDIRECT_URL = 'post:post_list'
+LOGIN_URL = 'member:login'
+
 # Application definition
 
 INSTALLED_APPS = [
