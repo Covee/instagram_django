@@ -39,3 +39,4 @@ def signup(request):
 		'signup_form': signup_form,
 	}
 	return render(request, 'member/signup.html', context)
+	
