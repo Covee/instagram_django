@@ -20,6 +20,7 @@ class User(AbstractUser):
 	gender = models.CharField(max_length=1, choices=CHOICES_GENDER)
 
 	objects = UserManager()
-	
+	like_posts = models.ManyToManyField('post.Post', blank=True, related_name='like_users')
+
 	def __str__(self):
 		return self.username
