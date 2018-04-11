@@ -4,6 +4,13 @@
 {% block content %}
 	<div class="row">
 		{% for post in posts %}
+
+					<div id="created-at" class="created-at">
+
+						업로드 날짜 : {{ post.created_at }}
+
+					</div>
+
 			<div id="post-{{ post.pk }}">
 			{% include 'include/post.html' with post_type='list' %}
 			</div>
