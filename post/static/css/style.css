@@ -15,7 +15,7 @@ nav.top-nav #top-nav.in .search-hashtag-form {
 }
 nav.top-nav #top-nav:not(.in):not(.collapsing) .search-hashtag-form .search-hashtag-input {
     font-size: 10px;
-    padding: 3px 10px;
+    padding: 4px 10px;
     height: 30px;
     border: 0;
     outline: none;
