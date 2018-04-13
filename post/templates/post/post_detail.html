@@ -4,5 +4,9 @@
 {% block content %}
 <div>
 	{% include 'include/post.html' with post_type='detail' %}
+	<a href="{% url 'post:post_delete' pk=post_pk %}">
+	<button class="btn btn-default btn-post-toggle">
+		삭제하기
+	</button></a>
 </div>
 {% endblock %}

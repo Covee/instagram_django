@@ -83,6 +83,16 @@ def post_create(request):
 
 
 @login_required
+def post_delete(request, post_pk):
+	post = get_object_or_404(Post, pk=post_pk)
+	post_form = PostForm()
+	context = {
+		'post_form': post_form,
+	}
+	return render(request, 'post/post_detail.html', context)
+
+
+@login_required
 def post_like_toggle(request, post_pk):
 	next_path = request.GET.get('next')
 	post = get_object_or_404(Post, pk=post_pk)
